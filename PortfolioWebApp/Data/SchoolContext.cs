@@ -14,6 +14,7 @@ namespace ContosoUniversity.Data
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Student> Students { get; set; }
 
+        //don't forget to add them here...
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Course>().ToTable("Course");
