@@ -23,6 +23,7 @@ namespace PortfolioWebApp.Controllers
         }
 
         // GET: Students/Details/5
+        //Takes you to the Details view
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,6 +46,7 @@ namespace PortfolioWebApp.Controllers
         }
 
         // GET: Students/Create
+        //Takes user to the Create view
         public IActionResult Create()
         {
             return View();
@@ -79,7 +81,7 @@ namespace PortfolioWebApp.Controllers
         }
 
         // GET: Students/Edit/5
-        //Bind prevents over posting
+        //Bind prevents over-posting
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(int? id)
@@ -108,6 +110,7 @@ namespace PortfolioWebApp.Controllers
         }
 
         // POST: Students/Edit/5
+        //Takes user to the Edit page
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -143,7 +146,8 @@ namespace PortfolioWebApp.Controllers
         }
 
         // GET: Students/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        //Takes you to the Delete View
+        public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
@@ -151,10 +155,20 @@ namespace PortfolioWebApp.Controllers
             }
 
             var student = await _context.Students
+                .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.ID == id);
+
             if (student == null)
             {
                 return NotFound();
+            }
+
+            //this relates to the optional parameter 'saveChangesError' which changes if a previous failure to 'Delete' just happened
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewData["ErrorMessage"] =
+                    "Delete failed. Try again, and if the problem persists " +
+                    "see your system administrator.";
             }
 
             return View(student);
