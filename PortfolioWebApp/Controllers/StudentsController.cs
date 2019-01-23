@@ -19,6 +19,7 @@ namespace PortfolioWebApp.Controllers
         // GET: Students (displays all students in the database)
         public async Task<IActionResult> Index(string sortOrder)
         {
+            //determines how names and dates should be displayed in Index.cshtml
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
 
