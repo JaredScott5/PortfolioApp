@@ -36,6 +36,7 @@ namespace PortfolioWebApp.Controllers
 
             if (id != null)
             {
+                //this will be sent to view Index
                 ViewData["InstructorID"] = id.Value;
                 Instructor instructor = viewModel.Instructors.Where(
                     i => i.ID == id.Value).Single();
@@ -44,6 +45,7 @@ namespace PortfolioWebApp.Controllers
 
             if (courseID != null)
             {
+                //this will be sent to view Index
                 ViewData["CourseID"] = courseID.Value;
                 viewModel.Enrollments = viewModel.Courses.Where(
                     x => x.CourseID == courseID).Single().Enrollments;
